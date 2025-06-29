@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación de Boda - Clara & Manuel</title>
+  <link href="https://photos.google.com/photo/AF1QipPlGODQU7fyzefXzKYe-pZB2ZkXkZrmxYD8G8DP" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      background: #fffaf5;
+      color: #333;
+    }
+    header {
+      background-image: url('https://cdn0.bodas.com.mx/article-vendor/3443/3_2/1280/jpg/analois-photoshoot-0055_5_193443-164815363528699.jpeg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+    }
+    header p {
+      font-size: 1.5em;
+    }
+    .countdown {
+      font-size: 1.8em;
+      background: #ffebee;
+      padding: 25px;
+      margin: 30px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .frase {
+      font-style: italic;
+      text-align: center;
+      margin: 20px 40px;
+      font-size: 1.4em;
+      color: #c2185b;
+    }
+    .btn {
+      background-color: #e91e63;
+      color: white;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 12px auto;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background-color: #ad1457;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 300px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    form input, form textarea {
+      width: 90%;
+      max-width: 450px;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    footer {
+      background: #f06292;
+      padding: 30px;
+      color: white;
+      text-align: center;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Diana & Ulises</h1>
+  <p>¡Nos casamos! 20 de Julio 2025</p>
+</header>
+
+<div class="countdown" id="countdown"></div>
+<p class="frase">"El amor se compone de una sola alma que habita en dos cuerpos." - Aristóteles</p>
+<p class="frase">"Donde hay amor, hay vida." - Mahatma Gandhi</p>
+
+<section class="section">
+  <h2>Detalles del Evento</h2>
+  <p><strong>Ceremonia:</strong> Parroquia Santa María, 6:00 PM</p>
+  <p><strong>Recepción:</strong> Jardín Las Rosas, 8:00 PM</p>
+  <a class="btn" href="https://maps.google.com/?q=Parroquia+Santa+Maria" target="_blank">Ver Iglesia en Maps</a>
+  <a class="btn" href="https://maps.google.com/?q=Jardin+Las+Rosas" target="_blank">Ver Recepción en Maps</a>
+</section>
+
+<section class="section">
+  <h2>Confirma tu asistencia</h2>
+  <form onsubmit="return enviarFormulario(event)">
+    <input type="text" name="nombre" placeholder="Tu nombre" required><br>
+    <textarea name="mensaje" placeholder="Déjanos un mensaje especial..."></textarea><br>
+    <input type="submit" value="Confirmar Asistencia" class="btn">
+  </form>
+  <p id="respuesta"></p>
+</section>
+
+<section class="section gallery">
+  <h2>Momentos que queremos compartir</h2>
+  <img src="https://cdn0.bodas.net/article-vendor/45446/3_2/960/jpg/ec-228_1_45446-168966401847248.jpeg" alt="Momentos">
+  <img src="https://admin.vsd.mx/wp-content/uploads/2023/02/Gui%CC%81a-de-Bodas-de-Quere%CC%81taro-El-Gran-Di%CC%81a-2023.jpg" alt="Pareja">
+  <img src="https://image-tc.galaxy.tf/wijpeg-3lujebfrl6ak3gtqcz3gs0ng/6-weddings-result.jpg?width=2500" alt="Amor">
+  <img src="https://img.freepik.com/foto-gratis/anillos-bodas-oro-rosa-blanca-ramo-boda_8353-10467.jpg?semt=ais_hybrid&w=740" alt="Recuerdo">
+</section>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+  Tu navegador no soporta el audio.
+</audio>
+
+<footer>
+  <p>Con amor, Diana & Ulises ❤️ Gracias por ser parte de nuestra historia</p>
+</footer>
+
+<script>
+  const countdown = document.getElementById('countdown');
+  const fechaEvento = new Date("Jul 20, 2025 18:00:00").getTime();
+  const timer = setInterval(() => {
+    const ahora = new Date().getTime();
+    const distancia = fechaEvento - ahora;
+    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `Faltan ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+
+    if (distancia < 0) {
+      clearInterval(timer);
+      countdown.innerHTML = "¡Ya comenzó!";
+    }
+  }, 1000);
+
+  function enviarFormulario(event) {
+    event.preventDefault();
+    document.getElementById('respuesta').innerText = "Gracias por confirmar tu asistencia 💌";
+  }
+</script>
+
+</body>
+</html>
