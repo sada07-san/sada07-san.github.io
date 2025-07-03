@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Prueba de diagnostico de Tecnología</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      background: white;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .hidden {
+      display: none;
+    }
+    h2, h3 {
+      color: #0d47a1;
+      text-align: center;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 12px;
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+    button:hover {
+      background-color: #0d47a1;
+    }
+    .opciones label {
+      display: block;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .correcta { color: green; font-weight: bold; }
+    .incorrecta { color: red; font-weight: bold; }
+    #timer {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #d32f2f;
+    }
+    .grande {
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .mediano {
+      font-size: 20px;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .verde { color: green; }
+    .naranja { color: orange; }
+    .rojo { color: red; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div id="inicio">
+    <h2>Prueba de Diagnostico de Tecnología</h2>
+
+    <label>Nombre Completo: <input type="text" id="nombre"></label>
+    <label>Apellido parterno <input type="text" id="apellidos"></label>
+    <label>Grado: <input type="text" id="grado"></label>
+    <label>Grupo: <input type="text" id="grupo"></label>
+    <label>Número de lista: <input type="number" id="lista"></label>
+    <button onclick="iniciarExamen()">Iniciar prueba</button>
+    <p id="error" style="color: red;"></p>
+  </div>
+
+  <div id="preguntaActual" class="hidden">
+    <div id="timer"></div>
+    <h3 id="tituloPregunta"></h3>
+    <div class="opciones" id="opciones"></div>
+    <button onclick="siguientePregunta()">Siguiente</button>
+  </div>
+
+  <div id="resultadoFinal" class="hidden">
+    <h2>Resultado de la Prueba</h2>
+    <p id="infoAlumno"></p>
+    <p id="resumen"></p>
+    <div id="tablaRespuestas"></div>
+    <button onclick="reiniciar()">Volver a intentar</button>
+  </div>
+</div>
+
+<script>
+const preguntas = [
+  { texto: "¿Qué es una herramienta?", tipo: "opcion", opciones: ["App", "Objeto útil", "Animal"], correcta: 1 },
+  { texto: "Convierte el número 5 a binario", tipo: "binario", correcta: "101" },
+  { texto: "¿Qué energía usa un panel solar?", tipo: "opcion", opciones: ["Eólica", "Solar", "Térmica"], correcta: 1 },
+  { texto: "Convierte el número 8 a binario", tipo: "binario", correcta: "1000" },
+  { texto: "¿Qué es la ergonomía?", tipo: "opcion", opciones: ["Diseño adaptado al cuerpo", "Decoración", "Publicidad"], correcta: 0 },
+  { texto: "Convierte el número 15 a binario", tipo: "binario", correcta: "1111" },
+  { texto: "¿Qué material es reciclable?", tipo: "opcion", opciones: ["Vidrio", "Papel mojado", "Tela sucia"], correcta: 0 },
+  { texto: "¿Cuál es un ejemplo de máquina simple?", tipo: "opcion", opciones: ["Computadora", "Palanca", "Motor"], correcta: 1 },
+  { texto: "¿Qué proceso transforma materia prima en productos?", tipo: "opcion", opciones: ["Reciclaje", "Producción técnica", "Transformación social"], correcta: 1 },
+  { texto: "¿Qué función tiene la energía en los procesos técnicos?", tipo: "opcion", opciones: ["Estética", "Motora", "Decorativa"], correcta: 1 },
+  { texto: "¿Qué sistema convierte energía en movimiento?", tipo: "opcion", opciones: ["Sistema eléctrico", "Sistema mecánico", "Sistema térmico"], correcta: 1 },
+  { texto: "¿Qué es un instrumento?", tipo: "opcion", opciones: ["Una tabla", "Una computadora", "Un objeto de medición o precisión"], correcta: 2 },
+  { texto: "¿Qué tipo de energía contamina menos?", tipo: "opcion", opciones: ["Carbón", "Solar", "Gasolina"], correcta: 1 },
+  { texto: "¿Qué es el reciclaje?", tipo: "opcion", opciones: ["Tirar basura", "Reutilizar materiales", "Quemar desechos"], correcta: 1 },
+  { texto: "¿Qué se considera un desecho tecnológico?", tipo: "opcion", opciones: ["Papel usado", "Celular viejo", "Ropa rota"], correcta: 1 },
+  { texto: "¿Cuál es una forma de organización técnica?", tipo: "opcion", opciones: ["Reunión familiar", "Línea de producción", "Clase de arte"], correcta: 1 },
+  { texto: "¿Qué es la sustentabilidad?", tipo: "opcion", opciones: ["Gastar recursos", "Cuidar recursos para el futuro", "Comprar productos caros"], correcta: 1 },
+  { texto: "¿Qué significa binario en informática?", tipo: "opcion", opciones: ["Lenguaje de dos símbolos (0 y 1)", "Códigos secretos", "Mensajes por radio"], correcta: 0 }
+];
+
+let indice = 0, respuestas = [], nombre = "", grupo = "", grado = "", lista = "";
+let tiempoRestante = 20 * 60, temporizador;
+
+function iniciarExamen() {
+  nombre = document.getElementById("nombre").value.trim();
+  apellido = document.getElementById('apellidos').value.trim();
+  grado = document.getElementById("grado").value.trim();
+  grupo = document.getElementById("grupo").value.trim();
+  lista = document.getElementById("lista").value.trim();
+
+  if (!nombre ||!apellido || !grupo || !lista || !grado) {
+    document.getElementById("error").innerText = "Completa todos los campos.";
+    return;
+  }
+
+  document.getElementById("inicio").classList.add("hidden");
+  document.getElementById("preguntaActual").classList.remove("hidden");
+  mostrarPregunta();
+  iniciarTemporizador();
+}
+
+function mostrarPregunta() {
+  const p = preguntas[indice];
+  document.getElementById("tituloPregunta").innerText = `Pregunta ${indice + 1}: ${p.texto}`;
+  const opcionesDiv = document.getElementById("opciones");
+  opcionesDiv.innerHTML = "";
+
+  if (p.tipo === "opcion") {
+    p.opciones.forEach((op, i) => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="radio" name="respuesta" value="${i}"> ${op}`;
+      opcionesDiv.appendChild(label);
+    });
+  } else {
+    opcionesDiv.innerHTML = `<input type="text" id="binarioRespuesta" placeholder="Ej: 1010">`;
+  }
+}
+
+function siguientePregunta() {
+  const p = preguntas[indice];
+  let respuesta;
+
+  if (p.tipo === "opcion") {
+    const seleccion = document.querySelector('input[name="respuesta"]:checked');
+    if (!seleccion) return alert("Selecciona una opción.");
+    respuesta = parseInt(seleccion.value);
+  } else {
+    const binInput = document.getElementById("binarioRespuesta").value.trim();
+    if (!binInput) return alert("Escribe la respuesta en binario.");
+    respuesta = binInput;
+  }
+
+  respuestas.push(respuesta);
+  indice++;
+
+  if (indice < preguntas.length) {
+    mostrarPregunta();
+  } else {
+    clearInterval(temporizador);
+    mostrarResultados();
+  }
+}
+
+function iniciarTemporizador() {
+  temporizador = setInterval(() => {
+    tiempoRestante--;
+    const minutos = Math.floor(tiempoRestante / 60);
+    const segundos = tiempoRestante % 60;
+    document.getElementById("timer").innerText = `Tiempo restante: ${minutos}:${segundos.toString().padStart(2, '0')}`;
+
+    if (tiempoRestante <= 0) {
+      clearInterval(temporizador);
+      alert("Se acabó el tiempo.");
+      mostrarResultados();
+    }
+  }, 1000);
+}
+
+function mostrarResultados() {
+  document.getElementById("preguntaActual").classList.add("hidden");
+  document.getElementById("resultadoFinal").classList.remove("hidden");
+
+  let correctas = 0;
+  let tabla = `<table><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr>`;
+
+  preguntas.forEach((p, i) => {
+    let tuResp = respuestas[i];
+    let esCorrecta = false;
+    let correcta = "";
+
+    if (p.tipo === "opcion") {
+      esCorrecta = tuResp === p.correcta;
+      tuResp = p.opciones[tuResp] || "Sin responder";
+      correcta = p.opciones[p.correcta];
+    } else {
+      esCorrecta = tuResp === p.correcta;
+      correcta = p.correcta;
+    }
+
+    if (esCorrecta) correctas++;
+
+    tabla += `<tr>
+      <td>${i + 1}</td>
+      <td>${p.texto}</td>
+      <td>${tuResp}</td>
+      <td>${correcta}</td>
+      <td class="${esCorrecta ? 'correcta' : 'incorrecta'}">${esCorrecta ? '✔️' : '❌'}</td>
+    </tr>`;
+  });
+
+  tabla += "</table>";
+  const promedio = ((correctas / preguntas.length) * 10).toFixed(1);
+  let colorClase = promedio >= 8 ? 'verde' : promedio >= 6 ? 'naranja' : 'rojo';
+
+  document.getElementById("infoAlumno").innerHTML = `
+    <span class="grande">Nombre: ${nombre}</span>
+    <span class="mediano">Apellido: ${apellido}</span>
+    <span class="mediano">Grado: ${grado} | Grupo: ${grupo} | Lista: ${lista}</span>`;
+
+  document.getElementById("resumen").innerHTML = `
+    <span class="grande ${colorClase}">Promedio final: ${promedio}</span>
+    <span class="mediano">Respuestas correctas: ${correctas} de ${preguntas.length}</span>`;
+
+  document.getElementById("tablaRespuestas").innerHTML = tabla;
+}
+
+function reiniciar() {
+  indice = 0;
+  respuestas = [];
+  tiempoRestante = 20 * 60;
+  clearInterval(temporizador);
+  document.getElementById("inicio").classList.remove("hidden");
+  document.getElementById("resultadoFinal").classList.add("hidden");
+  document.getElementById("nombre").value = "";
+  document.getElementById("apellidos").value = "";
+  document.getElementById("grado").value = "";
+  document.getElementById("grupo").value = "";
+  document.getElementById("lista").value = "";
+  document.getElementById("timer").innerText = "";
+}
+</script>
+</body>
+</html>
