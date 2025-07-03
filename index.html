@@ -2,270 +2,285 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación de Boda - Ulises y Diana</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <title>Prueba de diagnostico de Tecnología</title>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
     body {
-      font-family: 'Open Sans', sans-serif;
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
       margin: 0;
-      background: #fffaf5;
-      color: #333;
-      overflow-x: hidden;
+      padding: 20px;
     }
-    header {
-      background-image: url('https://cdn0.bodas.com.mx/article-vendor/3443/3_2/1280/jpg/analois-photoshoot-0055_5_193443-164815363528699.jpeg');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-    header h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 4em;
-      opacity: 0;
-      animation: fadeInUp 2s ease forwards;
-      animation-delay: 0.5s;
-    }
-    header p {
-      font-size: 1.5em;
-      opacity: 0;
-      animation: fadeInUp 2s ease forwards;
-      animation-delay: 1s;
-    }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    .fade-section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease-in-out;
-    }
-    .fade-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .countdown {
-      font-size: 1.8em;
-      background: #ffebee;
-      padding: 25px;
-      margin: 30px;
-      text-align: center;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .frase {
-      font-style: italic;
-      text-align: center;
-      margin: 20px 40px;
-      font-size: 1.4em;
-      color: #c2185b;
-    }
-    .btn {
-      background-color: #e91e63;
-      color: white;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 12px auto;
-      display: inline-block;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background-color: #ad1457;
-    }
-    .section {
-      padding: 40px 20px;
-      max-width: 1000px;
+    .container {
+      max-width: 900px;
+      background: white;
       margin: auto;
-      text-align: center;
-    }
-    .carousel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-      height: 320px;
-      position: relative;
-    }
-    .carousel img {
-      width: 100%;
-      max-width: 600px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.5s ease;
-    }
-    @keyframes scrollImages {
-      0% { transform: translateY(0); }
-      25% { transform: translateY(-100%); }
-      50% { transform: translateY(-200%); }
-      75% { transform: translateY(-300%); }
-      100% { transform: translateY(0); }
-    }
-    .carousel-inner {
-      display: flex;
-      flex-direction: column;
-      animation: scrollImages 20s infinite;
-    }
-    form input, form textarea {
-      width: 90%;
-      max-width: 450px;
-      padding: 12px;
-      margin: 12px 0;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    footer {
-      background: #f06292;
       padding: 30px;
-      color: white;
-      text-align: center;
-      font-size: 1.1em;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-    .audio-control {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #e91e63;
+    .hidden {
+      display: none;
+    }
+    h2, h3 {
+      color: #0d47a1;
+      text-align: center;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 12px;
+      background-color: #1565c0;
       color: white;
       border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 20px;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: block;
+      margin: 20px auto;
     }
+    button:hover {
+      background-color: #0d47a1;
+    }
+    .opciones label {
+      display: block;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .correcta { color: green; font-weight: bold; }
+    .incorrecta { color: red; font-weight: bold; }
+    #timer {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #d32f2f;
+    }
+    .grande {
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .mediano {
+      font-size: 20px;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .verde { color: green; }
+    .naranja { color: orange; }
+    .rojo { color: red; }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Diana & Ulises</h1>
-  <p>¡Nos casamos! 20 de Julio 2025</p>
-</header>
+<div class="container">
+  <div id="inicio">
+    <h2>Prueba de Diagnostico de Tecnología</h2>
 
-<div class="countdown fade-section" id="countdown"></div>
-<p class="frase fade-section">"El amor se compone de una sola alma que habita en dos cuerpos." - Aristóteles</p>
-<p class="frase fade-section">"Donde hay amor, hay vida." - Mahatma Gandhi</p>
-
-<section class="section fade-section">
-  <h2>Detalles del Evento</h2>
-  <p><strong>Ceremonia:</strong> Parroquia Santa María, 6:00 PM</p>
-  <p><strong>Recepción:</strong> Jardín Las Rosas, 8:00 PM</p>
-  <a class="btn" href="https://maps.google.com/?q=Parroquia+Santa+Maria" target="_blank">Ver Iglesia en Maps</a>
-  <a class="btn" href="https://maps.google.com/?q=Jardin+Las+Rosas" target="_blank">Ver Recepción en Maps</a>
-</section>
-
-<section class="section fade-section">
-  <h2>Confirma tu asistencia</h2>
-  <form onsubmit="return enviarFormulario(event)">
-    <input type="text" name="nombre" placeholder="Tu nombre" required><br>
-    <textarea name="mensaje" placeholder="Déjanos un mensaje especial..."></textarea><br>
-    <input type="submit" value="Confirmar Asistencia" class="btn">
-  </form>
-  <p id="respuesta"></p>
-</section>
-
-<section class="section fade-section">
-  <h2>Momentos que queremos compartir</h2>
-  <div class="carousel">
-    <div class="carousel-inner">
-      <img src="https://cdn0.bodas.net/article-vendor/45446/3_2/960/jpg/ec-228_1_45446-168966401847248.jpeg" alt="Momentos">
-      <img src="https://admin.vsd.mx/wp-content/uploads/2023/02/Gui%CC%81a-de-Bodas-de-Quere%CC%81taro-El-Gran-Di%CC%81a-2023.jpg" alt="Pareja">
-      <img src="https://image-tc.galaxy.tf/wijpeg-3lujebfrl6ak3gtqcz3gs0ng/6-weddings-result.jpg?width=2500" alt="Amor">
-      <img src="https://img.freepik.com/foto-gratis/anillos-bodas-oro-rosa-blanca-ramo-boda_8353-10467.jpg?semt=ais_hybrid&w=740" alt="Recuerdo">
-    </div>
+    <label>Nombre Completo: <input type="text" id="nombre"></label>
+    <label>Apellido parterno <input type="text" id="apellidos"></label>
+    <label>Grado: <input type="text" id="grado"></label>
+    <label>Grupo: <input type="text" id="grupo"></label>
+    <label>Número de lista: <input type="number" id="lista"></label>
+    <button onclick="iniciarExamen()">Iniciar prueba</button>
+    <p id="error" style="color: red;"></p>
   </div>
-</section>
 
-<audio id="musica" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_30e00b5a29.mp3?filename=wedding-march-10841.mp3" type="audio/mpeg">
-  Tu navegador no soporta el audio.
-</audio>
+  <div id="preguntaActual" class="hidden">
+    <div id="timer"></div>
+    <h3 id="tituloPregunta"></h3>
+    <div class="opciones" id="opciones"></div>
+    <button onclick="siguientePregunta()">Siguiente</button>
+  </div>
 
-<button class="audio-control" onclick="toggleAudio()">🔊</button>
-
-<footer class="fade-section">
-  <p>Con amor, Diana & Ulises ❤️ Gracias por ser parte de nuestra historia</p>
-
-  <section class="section fade-section">
-  <h2>¿Qué tanto conoces a los novios?</h2>
-  <p>¡Juega y pon a prueba tus conocimientos sobre Diana y Ulises!</p>
-  <a class="btn" href="juego.html">Ir al Juego 🎲</a>
-</section>
-</footer>
+  <div id="resultadoFinal" class="hidden">
+    <h2>Resultado de la Prueba</h2>
+    <p id="infoAlumno"></p>
+    <p id="resumen"></p>
+    <div id="tablaRespuestas"></div>
+    <button onclick="reiniciar()">Volver a intentar</button>
+  </div>
+</div>
 
 <script>
-  const countdown = document.getElementById('countdown');
-  const fechaEvento = new Date("Jul 20, 2025 18:00:00").getTime();
-  const timer = setInterval(() => {
-    const ahora = new Date().getTime();
-    const distancia = fechaEvento - ahora;
-    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+const preguntas = [
+  { texto: "¿Qué es una herramienta?", tipo: "opcion", opciones: ["App", "Objeto útil", "Animal"], correcta: 1 },
+  { texto: "Convierte el número 5 a binario", tipo: "binario", correcta: "101" },
+  { texto: "¿Qué energía usa un panel solar?", tipo: "opcion", opciones: ["Eólica", "Solar", "Térmica"], correcta: 1 },
+  { texto: "Convierte el número 8 a binario", tipo: "binario", correcta: "1000" },
+  { texto: "¿Qué es la ergonomía?", tipo: "opcion", opciones: ["Diseño adaptado al cuerpo", "Decoración", "Publicidad"], correcta: 0 },
+  { texto: "Convierte el número 15 a binario", tipo: "binario", correcta: "1111" },
+  { texto: "¿Qué material es reciclable?", tipo: "opcion", opciones: ["Vidrio", "Papel mojado", "Tela sucia"], correcta: 0 },
+  { texto: "¿Cuál es un ejemplo de máquina simple?", tipo: "opcion", opciones: ["Computadora", "Palanca", "Motor"], correcta: 1 },
+  { texto: "¿Qué proceso transforma materia prima en productos?", tipo: "opcion", opciones: ["Reciclaje", "Producción técnica", "Transformación social"], correcta: 1 },
+  { texto: "¿Qué función tiene la energía en los procesos técnicos?", tipo: "opcion", opciones: ["Estética", "Motora", "Decorativa"], correcta: 1 },
+  { texto: "¿Qué sistema convierte energía en movimiento?", tipo: "opcion", opciones: ["Sistema eléctrico", "Sistema mecánico", "Sistema térmico"], correcta: 1 },
+  { texto: "¿Qué es un instrumento?", tipo: "opcion", opciones: ["Una tabla", "Una computadora", "Un objeto de medición o precisión"], correcta: 2 },
+  { texto: "¿Qué tipo de energía contamina menos?", tipo: "opcion", opciones: ["Carbón", "Solar", "Gasolina"], correcta: 1 },
+  { texto: "¿Qué es el reciclaje?", tipo: "opcion", opciones: ["Tirar basura", "Reutilizar materiales", "Quemar desechos"], correcta: 1 },
+  { texto: "¿Qué se considera un desecho tecnológico?", tipo: "opcion", opciones: ["Papel usado", "Celular viejo", "Ropa rota"], correcta: 1 },
+  { texto: "¿Cuál es una forma de organización técnica?", tipo: "opcion", opciones: ["Reunión familiar", "Línea de producción", "Clase de arte"], correcta: 1 },
+  { texto: "¿Qué es la sustentabilidad?", tipo: "opcion", opciones: ["Gastar recursos", "Cuidar recursos para el futuro", "Comprar productos caros"], correcta: 1 },
+  { texto: "¿Qué significa binario en informática?", tipo: "opcion", opciones: ["Lenguaje de dos símbolos (0 y 1)", "Códigos secretos", "Mensajes por radio"], correcta: 0 }
+];
 
-    countdown.innerHTML = `Faltan ${dias} días, ${horas}h ${minutos}m ${segundos}s`;
+let indice = 0, respuestas = [], nombre = "", grupo = "", grado = "", lista = "";
+let tiempoRestante = 20 * 60, temporizador;
 
-    if (distancia < 0) {
-      clearInterval(timer);
-      countdown.innerHTML = "¡Ya comenzó!";
+function iniciarExamen() {
+  nombre = document.getElementById("nombre").value.trim();
+  apellido = document.getElementById('apellidos').value.trim();
+  grado = document.getElementById("grado").value.trim();
+  grupo = document.getElementById("grupo").value.trim();
+  lista = document.getElementById("lista").value.trim();
+
+  if (!nombre ||!apellido || !grupo || !lista || !grado) {
+    document.getElementById("error").innerText = "Completa todos los campos.";
+    return;
+  }
+
+  document.getElementById("inicio").classList.add("hidden");
+  document.getElementById("preguntaActual").classList.remove("hidden");
+  mostrarPregunta();
+  iniciarTemporizador();
+}
+
+function mostrarPregunta() {
+  const p = preguntas[indice];
+  document.getElementById("tituloPregunta").innerText = `Pregunta ${indice + 1}: ${p.texto}`;
+  const opcionesDiv = document.getElementById("opciones");
+  opcionesDiv.innerHTML = "";
+
+  if (p.tipo === "opcion") {
+    p.opciones.forEach((op, i) => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="radio" name="respuesta" value="${i}"> ${op}`;
+      opcionesDiv.appendChild(label);
+    });
+  } else {
+    opcionesDiv.innerHTML = `<input type="text" id="binarioRespuesta" placeholder="Ej: 1010">`;
+  }
+}
+
+function siguientePregunta() {
+  const p = preguntas[indice];
+  let respuesta;
+
+  if (p.tipo === "opcion") {
+    const seleccion = document.querySelector('input[name="respuesta"]:checked');
+    if (!seleccion) return alert("Selecciona una opción.");
+    respuesta = parseInt(seleccion.value);
+  } else {
+    const binInput = document.getElementById("binarioRespuesta").value.trim();
+    if (!binInput) return alert("Escribe la respuesta en binario.");
+    respuesta = binInput;
+  }
+
+  respuestas.push(respuesta);
+  indice++;
+
+  if (indice < preguntas.length) {
+    mostrarPregunta();
+  } else {
+    clearInterval(temporizador);
+    mostrarResultados();
+  }
+}
+
+function iniciarTemporizador() {
+  temporizador = setInterval(() => {
+    tiempoRestante--;
+    const minutos = Math.floor(tiempoRestante / 60);
+    const segundos = tiempoRestante % 60;
+    document.getElementById("timer").innerText = `Tiempo restante: ${minutos}:${segundos.toString().padStart(2, '0')}`;
+
+    if (tiempoRestante <= 0) {
+      clearInterval(temporizador);
+      alert("Se acabó el tiempo.");
+      mostrarResultados();
     }
   }, 1000);
+}
 
-  function enviarFormulario(event) {
-    event.preventDefault();
-    document.getElementById('respuesta').innerText = "Gracias por confirmar tu asistencia 💌";
-  }
+function mostrarResultados() {
+  document.getElementById("preguntaActual").classList.add("hidden");
+  document.getElementById("resultadoFinal").classList.remove("hidden");
 
-  function toggleAudio() {
-    const audio = document.getElementById('musica');
-    if (audio.paused) {
-      audio.play();
+  let correctas = 0;
+  let tabla = `<table><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr>`;
+
+  preguntas.forEach((p, i) => {
+    let tuResp = respuestas[i];
+    let esCorrecta = false;
+    let correcta = "";
+
+    if (p.tipo === "opcion") {
+      esCorrecta = tuResp === p.correcta;
+      tuResp = p.opciones[tuResp] || "Sin responder";
+      correcta = p.opciones[p.correcta];
     } else {
-      audio.pause();
+      esCorrecta = tuResp === p.correcta;
+      correcta = p.correcta;
     }
-  }
 
-  // Fade-in effect on scroll
-  const faders = document.querySelectorAll('.fade-section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+    if (esCorrecta) correctas++;
 
-  faders.forEach(section => {
-    observer.observe(section);
+    tabla += `<tr>
+      <td>${i + 1}</td>
+      <td>${p.texto}</td>
+      <td>${tuResp}</td>
+      <td>${correcta}</td>
+      <td class="${esCorrecta ? 'correcta' : 'incorrecta'}">${esCorrecta ? '✔️' : '❌'}</td>
+    </tr>`;
   });
-</script>
 
+  tabla += "</table>";
+  const promedio = ((correctas / preguntas.length) * 10).toFixed(1);
+  let colorClase = promedio >= 8 ? 'verde' : promedio >= 6 ? 'naranja' : 'rojo';
+
+  document.getElementById("infoAlumno").innerHTML = `
+    <span class="grande">Nombre: ${nombre}</span>
+    <span class="mediano">Apellido: ${apellido}</span>
+    <span class="mediano">Grado: ${grado} | Grupo: ${grupo} | Lista: ${lista}</span>`;
+
+  document.getElementById("resumen").innerHTML = `
+    <span class="grande ${colorClase}">Promedio final: ${promedio}</span>
+    <span class="mediano">Respuestas correctas: ${correctas} de ${preguntas.length}</span>`;
+
+  document.getElementById("tablaRespuestas").innerHTML = tabla;
+}
+
+function reiniciar() {
+  indice = 0;
+  respuestas = [];
+  tiempoRestante = 20 * 60;
+  clearInterval(temporizador);
+  document.getElementById("inicio").classList.remove("hidden");
+  document.getElementById("resultadoFinal").classList.add("hidden");
+  document.getElementById("nombre").value = "";
+  document.getElementById("apellidos").value = "";
+  document.getElementById("grado").value = "";
+  document.getElementById("grupo").value = "";
+  document.getElementById("lista").value = "";
+  document.getElementById("timer").innerText = "";
+}
+</script>
 </body>
 </html>
