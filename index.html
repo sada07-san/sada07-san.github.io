@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación de Boda - Clara & Manuel</title>
-  <link href="https://photos.google.com/photo/AF1QipPlGODQU7fyzefXzKYe-pZB2ZkXkZrmxYD8G8DP" rel="stylesheet">
+  <title>Invitación de Boda - Ulises y Diana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Open Sans', sans-serif;
       margin: 0;
       background: #fffaf5;
       color: #333;
+      overflow-x: hidden;
     }
     header {
       background-image: url('https://cdn0.bodas.com.mx/article-vendor/3443/3_2/1280/jpg/analois-photoshoot-0055_5_193443-164815363528699.jpeg');
@@ -19,13 +23,47 @@
       color: white;
       text-align: center;
       padding: 80px 20px;
+      animation: fadeIn 2s ease-in-out;
     }
     header h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 4em;
+      opacity: 0;
+      animation: fadeInUp 2s ease forwards;
+      animation-delay: 0.5s;
     }
     header p {
       font-size: 1.5em;
+      opacity: 0;
+      animation: fadeInUp 2s ease forwards;
+      animation-delay: 1s;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .fade-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease-in-out;
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .countdown {
       font-size: 1.8em;
@@ -64,17 +102,33 @@
       margin: auto;
       text-align: center;
     }
-    .gallery {
+    .carousel {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      height: 320px;
+      position: relative;
     }
-    .gallery img {
+    .carousel img {
       width: 100%;
-      max-width: 300px;
-      margin: 10px;
-      border-radius: 12px;
+      max-width: 600px;
+      margin-bottom: 20px;
+      border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease;
+    }
+    @keyframes scrollImages {
+      0% { transform: translateY(0); }
+      25% { transform: translateY(-100%); }
+      50% { transform: translateY(-200%); }
+      75% { transform: translateY(-300%); }
+      100% { transform: translateY(0); }
+    }
+    .carousel-inner {
+      display: flex;
+      flex-direction: column;
+      animation: scrollImages 20s infinite;
     }
     form input, form textarea {
       width: 90%;
@@ -91,6 +145,20 @@
       text-align: center;
       font-size: 1.1em;
     }
+    .audio-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
@@ -100,11 +168,11 @@
   <p>¡Nos casamos! 20 de Julio 2025</p>
 </header>
 
-<div class="countdown" id="countdown"></div>
-<p class="frase">"El amor se compone de una sola alma que habita en dos cuerpos." - Aristóteles</p>
-<p class="frase">"Donde hay amor, hay vida." - Mahatma Gandhi</p>
+<div class="countdown fade-section" id="countdown"></div>
+<p class="frase fade-section">"El amor se compone de una sola alma que habita en dos cuerpos." - Aristóteles</p>
+<p class="frase fade-section">"Donde hay amor, hay vida." - Mahatma Gandhi</p>
 
-<section class="section">
+<section class="section fade-section">
   <h2>Detalles del Evento</h2>
   <p><strong>Ceremonia:</strong> Parroquia Santa María, 6:00 PM</p>
   <p><strong>Recepción:</strong> Jardín Las Rosas, 8:00 PM</p>
@@ -112,7 +180,7 @@
   <a class="btn" href="https://maps.google.com/?q=Jardin+Las+Rosas" target="_blank">Ver Recepción en Maps</a>
 </section>
 
-<section class="section">
+<section class="section fade-section">
   <h2>Confirma tu asistencia</h2>
   <form onsubmit="return enviarFormulario(event)">
     <input type="text" name="nombre" placeholder="Tu nombre" required><br>
@@ -122,21 +190,33 @@
   <p id="respuesta"></p>
 </section>
 
-<section class="section gallery">
+<section class="section fade-section">
   <h2>Momentos que queremos compartir</h2>
-  <img src="https://cdn0.bodas.net/article-vendor/45446/3_2/960/jpg/ec-228_1_45446-168966401847248.jpeg" alt="Momentos">
-  <img src="https://admin.vsd.mx/wp-content/uploads/2023/02/Gui%CC%81a-de-Bodas-de-Quere%CC%81taro-El-Gran-Di%CC%81a-2023.jpg" alt="Pareja">
-  <img src="https://image-tc.galaxy.tf/wijpeg-3lujebfrl6ak3gtqcz3gs0ng/6-weddings-result.jpg?width=2500" alt="Amor">
-  <img src="https://img.freepik.com/foto-gratis/anillos-bodas-oro-rosa-blanca-ramo-boda_8353-10467.jpg?semt=ais_hybrid&w=740" alt="Recuerdo">
+  <div class="carousel">
+    <div class="carousel-inner">
+      <img src="https://cdn0.bodas.net/article-vendor/45446/3_2/960/jpg/ec-228_1_45446-168966401847248.jpeg" alt="Momentos">
+      <img src="https://admin.vsd.mx/wp-content/uploads/2023/02/Gui%CC%81a-de-Bodas-de-Quere%CC%81taro-El-Gran-Di%CC%81a-2023.jpg" alt="Pareja">
+      <img src="https://image-tc.galaxy.tf/wijpeg-3lujebfrl6ak3gtqcz3gs0ng/6-weddings-result.jpg?width=2500" alt="Amor">
+      <img src="https://img.freepik.com/foto-gratis/anillos-bodas-oro-rosa-blanca-ramo-boda_8353-10467.jpg?semt=ais_hybrid&w=740" alt="Recuerdo">
+    </div>
+  </div>
 </section>
 
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+<audio id="musica" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_30e00b5a29.mp3?filename=wedding-march-10841.mp3" type="audio/mpeg">
   Tu navegador no soporta el audio.
 </audio>
 
-<footer>
+<button class="audio-control" onclick="toggleAudio()">🔊</button>
+
+<footer class="fade-section">
   <p>Con amor, Diana & Ulises ❤️ Gracias por ser parte de nuestra historia</p>
+
+  <section class="section fade-section">
+  <h2>¿Qué tanto conoces a los novios?</h2>
+  <p>¡Juega y pon a prueba tus conocimientos sobre Diana y Ulises!</p>
+  <a class="btn" href="juego.html">Ir al Juego 🎲</a>
+</section>
 </footer>
 
 <script>
@@ -162,6 +242,29 @@
     event.preventDefault();
     document.getElementById('respuesta').innerText = "Gracias por confirmar tu asistencia 💌";
   }
+
+  function toggleAudio() {
+    const audio = document.getElementById('musica');
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  // Fade-in effect on scroll
+  const faders = document.querySelectorAll('.fade-section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  faders.forEach(section => {
+    observer.observe(section);
+  });
 </script>
 
 </body>
