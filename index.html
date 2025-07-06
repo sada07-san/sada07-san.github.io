@@ -1,286 +1,369 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Prueba de diagnostico de Tecnología</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DianisPro 2.0 💖</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #e3f2fd;
       margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      overflow-x: hidden;
     }
-    .container {
-      max-width: 900px;
-      background: white;
-      margin: auto;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    #inicio {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 245, 235, 0.9);
     }
-    .hidden {
-      display: none;
+    #inicio h1 {
+      font-size: 2.5em;
+      color: #b30059;
+      margin-bottom: 20px;
     }
-    h2, h3 {
-      color: #0d47a1;
-      text-align: center;
-    }
-    input[type="text"], input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      padding: 12px;
-      background-color: #1565c0;
-      color: white;
+    #inicio button {
+      background-color: #ffb6c1;
       border: none;
-      border-radius: 6px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 30px;
       cursor: pointer;
-      display: block;
-      margin: 20px auto;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: background 0.3s;
     }
-    button:hover {
-      background-color: #0d47a1;
+    #inicio button:hover { background-color: #ff99aa; }
+
+    #contenido {
+      display: none;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.95);
+      min-height: 100vh;
     }
-    .opciones label {
-      display: block;
-      margin: 8px 0;
-      font-size: 16px;
+    .section-title {
+      font-size: 1.8em;
+      color: #b30059;
+      margin: 30px 0 20px;
+      text-align: center;
     }
-    table {
+    .message-block {
+      background: #fff7fb;
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    .verse {
+      background: #fef4f7;
+      border-left: 5px solid #ff99cc;
+      padding: 15px;
+      font-style: italic;
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+    .flip-gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .flip-card {
+      width: 90%;
+      max-width: 400px;
+      height: 250px;
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      position: relative;
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
     }
-    table, th, td {
-      border: 1px solid #ccc;
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
-    th, td {
-      padding: 10px;
+    .flip-card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .flip-card-back {
+      background-color: #fff0f5;
+      color: #d63384;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      padding: 20px;
+      transform: rotateY(180deg);
       text-align: center;
     }
-    .correcta { color: green; font-weight: bold; }
-    .incorrecta { color: red; font-weight: bold; }
-    #timer {
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+      border-left: 3px solid #ffb3cc;
+    }
+    .timeline-event { margin-bottom: 30px; }
+    .timeline-event h4 { margin: 0; color: #d63384; }
+    .poem {
+      background: #fff4f7;
+      padding: 20px;
+      border-radius: 15px;
+      font-style: italic;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+    footer {
       text-align: center;
-      font-size: 18px;
+      margin: 40px 0;
+      font-size: 0.9em;
+      color: #777;
+    }
+    audio { display: none; }
+
+    /* Preguntas chistosas */
+    .question-block {
+      background-color: #fff0f5;
+      border: 2px dashed #ff80ab;
+      padding: 15px;
+      font-size: 1.1em;
+      border-radius: 15px;
+      cursor: default;
+      width: 90%;
+      max-width: 420px;
+      text-align: left;
+      transition: background 0.3s;
+      margin-bottom: 10px;
+    }
+    .question-buttons {
       margin-top: 10px;
-      color: #d32f2f;
+      display: flex;
+      gap: 15px;
     }
-    .grande {
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-      display: block;
-      margin-bottom: 10px;
+    .question-buttons button {
+      background-color: #ff80ab;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      transition: background-color 0.3s;
     }
-    .mediano {
-      font-size: 20px;
-      text-align: center;
-      display: block;
-      margin-bottom: 10px;
+    .question-buttons button:hover {
+      background-color: #ff4d88;
     }
-    .verde { color: green; }
-    .naranja { color: orange; }
-    .rojo { color: red; }
   </style>
 </head>
 <body>
 
-<div class="container">
+  <!-- Música de fondo -->
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <!-- Pantalla de bienvenida -->
   <div id="inicio">
-    <h2>Prueba de Diagnostico de Tecnología</h2>
-
-    <label>Nombre Completo: <input type="text" id="nombre"></label>
-    <label>Apellido parterno <input type="text" id="apellidos"></label>
-    <label>Grado: <input type="text" id="grado"></label>
-    <label>Grupo: <input type="text" id="grupo"></label>
-    <label>Número de lista: <input type="number" id="lista"></label>
-    <button onclick="iniciarExamen()">Iniciar prueba</button>
-    <p id="error" style="color: red;"></p>
+    <h1>Para ti, muñeca 💌</h1>
+    <button onclick="mostrarContenido()">Haz clic aquí</button>
   </div>
 
-  <div id="preguntaActual" class="hidden">
-    <div id="timer"></div>
-    <h3 id="tituloPregunta"></h3>
-    <div class="opciones" id="opciones"></div>
-    <button onclick="siguientePregunta()">Siguiente</button>
+  <!-- Contenido principal -->
+  <div id="contenido">
+    <section>
+      <h2 class="section-title">💖 Mensajes para ti</h2>
+      <div class="message-block">Eres la obra más hermosa de Dios y hoy floreces con su amor.</div>
+      <div class="message-block">Estoy tan orgulloso de ti por este paso eterno y valiente.</div>
+      <div class="message-block">Tu sonrisa ilumina cada rincón de mi corazón y mi vida.</div>
+      <div class="message-block">Eres mi inspiración diaria, mi fuerza, mi compañera y mi amor.</div>
+      <div class="message-block">Hoy nace una nueva tú: llena de fe, gracia y propósito eterno.</div>
+    </section>
+
+    <section>
+      <h2 class="section-title">📖 Versículos que te guían</h2>
+      <div class="verse">
+        “De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas.” – 2 Corintios 5:17
+      </div>
+      <div class="verse">
+        “El Señor te bendiga y te guarde; el Señor haga resplandecer su rostro sobre ti...” – Números 6:24-25
+      </div>
+      <div class="verse">
+        “Ella está vestida de fuerza y dignidad, y se ríe sin temor al futuro.” – Proverbios 31:25
+      </div>
+      <div class="verse">
+        “Confía en el Señor con todo tu corazón, y no te apoyes en tu propia prudencia.” – Proverbios 3:5
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">📸 Galería con Mensajes</h2>
+      <div class="flip-gallery">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="img/foto1.jpg" alt="Foto 1">
+            </div>
+            <div class="flip-card-back">Eres mi flor más hermosa 🌸</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="img/foto2.jpg" alt="Foto 2">
+            </div>
+            <div class="flip-card-back">Eres luz en mi camino ✨</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="img/foto3.jpg" alt="Foto 3">
+            </div>
+            <div class="flip-card-back">Con Jesús en tu corazón, todo es posible ❤️</div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="img/foto4.jpg" alt="Foto 4">
+            </div>
+            <div class="flip-card-back">Tu sonrisa ilumina más que mil estrellas 🌟</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">⏳ Línea del Tiempo</h2>
+      <div class="timeline">
+        <div class="timeline-event"><h4>👶 Dios te soñó</h4><p>Antes de nacer, Él tenía un plan perfecto para ti.</p></div>
+        <div class="timeline-event"><h4>💗 Caminaste con amor</h4><p>Y encontraste quienes te amamos profundamente.</p></div>
+        <div class="timeline-event"><h4>✝️ Te encontraste con Jesús</h4><p>Y tu vida cambió para siempre. Eres libre.</p></div>
+        <div class="timeline-event"><h4>🔥 Nace DianisPro 2.0</h4><p>Una mujer nueva, llena de fe, gracia y propósito.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">📝 Poema para mi Amada</h2>
+      <div class="poem">
+        Como flor de primavera,<br>
+        tu alma se abre entera.<br><br>
+        Con fe y con esperanza,<br>
+        renaces con templanza.<br><br>
+        No hay versión más divina,<br>
+        que DianisPro... tan fina.<br><br>
+        Eres luz, faro y canción,<br>
+        mi amor, mi inspiración.<br><br>
+        Y con Cristo como guía,<br>
+        tu vida brilla día a día. 💖
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">😅 ¿Cambiaste de verdad?</h2>
+      <p style="text-align:center;">Responde estas preguntas con humor santo 😇</p>
+      
+      <div class="question-block">
+        1. ¿Oraste antes de comer o ya estabas en el segundo bocado?
+        <div class="question-buttons">
+          <button onclick="respuestaPregunta(1,true)">Sí</button>
+          <button onclick="respuestaPregunta(1,false)">No</button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        2. ¿Dijiste “Dios te bendiga” con intención o por costumbre?
+        <div class="question-buttons">
+          <button onclick="respuestaPregunta(2,true)">Sí</button>
+          <button onclick="respuestaPregunta(2,false)">No</button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        3. ¿Criticaste al que llegó tarde o lo perdonaste?
+        <div class="question-buttons">
+          <button onclick="respuestaPregunta(3,true)">Sí</button>
+          <button onclick="respuestaPregunta(3,false)">No</button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        4. ¿Cantaste en la alabanza con gozo o murmuraste bajito?
+        <div class="question-buttons">
+          <button onclick="respuestaPregunta(4,true)">Sí</button>
+          <button onclick="respuestaPregunta(4,false)">No</button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        5. ¿Sientes que Dios ya está haciendo algo nuevo en ti?
+        <div class="question-buttons">
+          <button onclick="respuestaPregunta(5,true)">Sí</button>
+          <button onclick="respuestaPregunta(5,false)">No</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Creado con amor eterno 💌<br>
+      Por quien te ama y admira cada día.
+    </footer>
   </div>
 
-  <div id="resultadoFinal" class="hidden">
-    <h2>Resultado de la Prueba</h2>
-    <p id="infoAlumno"></p>
-    <p id="resumen"></p>
-    <div id="tablaRespuestas"></div>
-    <button onclick="reiniciar()">Volver a intentar</button>
-  </div>
-</div>
-
-<script>
-const preguntas = [
-  { texto: "¿Qué es una herramienta?", tipo: "opcion", opciones: ["App", "Objeto útil", "Animal"], correcta: 1 },
-  { texto: "Convierte el número 5 a binario", tipo: "binario", correcta: "101" },
-  { texto: "¿Qué energía usa un panel solar?", tipo: "opcion", opciones: ["Eólica", "Solar", "Térmica"], correcta: 1 },
-  { texto: "Convierte el número 8 a binario", tipo: "binario", correcta: "1000" },
-  { texto: "¿Qué es la ergonomía?", tipo: "opcion", opciones: ["Diseño adaptado al cuerpo", "Decoración", "Publicidad"], correcta: 0 },
-  { texto: "Convierte el número 15 a binario", tipo: "binario", correcta: "1111" },
-  { texto: "¿Qué material es reciclable?", tipo: "opcion", opciones: ["Vidrio", "Papel mojado", "Tela sucia"], correcta: 0 },
-  { texto: "¿Cuál es un ejemplo de máquina simple?", tipo: "opcion", opciones: ["Computadora", "Palanca", "Motor"], correcta: 1 },
-  { texto: "¿Qué proceso transforma materia prima en productos?", tipo: "opcion", opciones: ["Reciclaje", "Producción técnica", "Transformación social"], correcta: 1 },
-  { texto: "¿Qué función tiene la energía en los procesos técnicos?", tipo: "opcion", opciones: ["Estética", "Motora", "Decorativa"], correcta: 1 },
-  { texto: "¿Qué sistema convierte energía en movimiento?", tipo: "opcion", opciones: ["Sistema eléctrico", "Sistema mecánico", "Sistema térmico"], correcta: 1 },
-  { texto: "¿Qué es un instrumento?", tipo: "opcion", opciones: ["Una tabla", "Una computadora", "Un objeto de medición o precisión"], correcta: 2 },
-  { texto: "¿Qué tipo de energía contamina menos?", tipo: "opcion", opciones: ["Carbón", "Solar", "Gasolina"], correcta: 1 },
-  { texto: "¿Qué es el reciclaje?", tipo: "opcion", opciones: ["Tirar basura", "Reutilizar materiales", "Quemar desechos"], correcta: 1 },
-  { texto: "¿Qué se considera un desecho tecnológico?", tipo: "opcion", opciones: ["Papel usado", "Celular viejo", "Ropa rota"], correcta: 1 },
-  { texto: "¿Cuál es una forma de organización técnica?", tipo: "opcion", opciones: ["Reunión familiar", "Línea de producción", "Clase de arte"], correcta: 1 },
-  { texto: "¿Qué es la sustentabilidad?", tipo: "opcion", opciones: ["Gastar recursos", "Cuidar recursos para el futuro", "Comprar productos caros"], correcta: 1 },
-  { texto: "¿Qué significa binario en informática?", tipo: "opcion", opciones: ["Lenguaje de dos símbolos (0 y 1)", "Códigos secretos", "Mensajes por radio"], correcta: 0 }
-];
-
-let indice = 0, respuestas = [], nombre = "", grupo = "", grado = "", lista = "";
-let tiempoRestante = 20 * 60, temporizador;
-
-function iniciarExamen() {
-  nombre = document.getElementById("nombre").value.trim();
-  apellido = document.getElementById('apellidos').value.trim();
-  grado = document.getElementById("grado").value.trim();
-  grupo = document.getElementById("grupo").value.trim();
-  lista = document.getElementById("lista").value.trim();
-
-  if (!nombre ||!apellido || !grupo || !lista || !grado) {
-    document.getElementById("error").innerText = "Completa todos los campos.";
-    return;
-  }
-
-  document.getElementById("inicio").classList.add("hidden");
-  document.getElementById("preguntaActual").classList.remove("hidden");
-  mostrarPregunta();
-  iniciarTemporizador();
-}
-
-function mostrarPregunta() {
-  const p = preguntas[indice];
-  document.getElementById("tituloPregunta").innerText = `Pregunta ${indice + 1}: ${p.texto}`;
-  const opcionesDiv = document.getElementById("opciones");
-  opcionesDiv.innerHTML = "";
-
-  if (p.tipo === "opcion") {
-    p.opciones.forEach((op, i) => {
-      const label = document.createElement("label");
-      label.innerHTML = `<input type="radio" name="respuesta" value="${i}"> ${op}`;
-      opcionesDiv.appendChild(label);
-    });
-  } else {
-    opcionesDiv.innerHTML = `<input type="text" id="binarioRespuesta" placeholder="Ej: 1010">`;
-  }
-}
-
-function siguientePregunta() {
-  const p = preguntas[indice];
-  let respuesta;
-
-  if (p.tipo === "opcion") {
-    const seleccion = document.querySelector('input[name="respuesta"]:checked');
-    if (!seleccion) return alert("Selecciona una opción.");
-    respuesta = parseInt(seleccion.value);
-  } else {
-    const binInput = document.getElementById("binarioRespuesta").value.trim();
-    if (!binInput) return alert("Escribe la respuesta en binario.");
-    respuesta = binInput;
-  }
-
-  respuestas.push(respuesta);
-  indice++;
-
-  if (indice < preguntas.length) {
-    mostrarPregunta();
-  } else {
-    clearInterval(temporizador);
-    mostrarResultados();
-  }
-}
-
-function iniciarTemporizador() {
-  temporizador = setInterval(() => {
-    tiempoRestante--;
-    const minutos = Math.floor(tiempoRestante / 60);
-    const segundos = tiempoRestante % 60;
-    document.getElementById("timer").innerText = `Tiempo restante: ${minutos}:${segundos.toString().padStart(2, '0')}`;
-
-    if (tiempoRestante <= 0) {
-      clearInterval(temporizador);
-      alert("Se acabó el tiempo.");
-      mostrarResultados();
+  <script>
+    function mostrarContenido(){
+      document.getElementById("inicio").style.display = "none";
+      document.getElementById("contenido").style.display = "block";
     }
-  }, 1000);
-}
 
-function mostrarResultados() {
-  document.getElementById("preguntaActual").classList.add("hidden");
-  document.getElementById("resultadoFinal").classList.remove("hidden");
+    // Mensajes divertidos para cada pregunta según respuesta
+    const respuestas = {
+      1: {
+        true: "¡Muy bien! La oración antes del alimento es bendición directa 😇🙏",
+        false: "Ya sabía que eras impaciente, pero aun así te amo 😂❤️"
+      },
+      2: {
+        true: "¡Dios te bendiga en serio! Eso se siente en el aire 😆✨",
+        false: "Dudoso... pero bueno, el amor siempre perdona 😜💕"
+      },
+      3: {
+        true: "¡Perdonaste! Eso sí que es santo progreso 👏😇",
+        false: "No te creo, pero igual te quiero igual 🤣"
+      },
+      4: {
+        true: "¡Alabanza con todo el corazón! Así me gusta 🎤🔥",
+        false: "Murmullos... bueno, todos empezamos en algún lugar 😅"
+      },
+      5: {
+        true: "¡Claro que sí! Felicidades DianisPro 2.0 🎉🎊",
+        false: "Paciencia, que lo mejor está por venir 💖"
+      }
+    };
 
-  let correctas = 0;
-  let tabla = `<table><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr>`;
-
-  preguntas.forEach((p, i) => {
-    let tuResp = respuestas[i];
-    let esCorrecta = false;
-    let correcta = "";
-
-    if (p.tipo === "opcion") {
-      esCorrecta = tuResp === p.correcta;
-      tuResp = p.opciones[tuResp] || "Sin responder";
-      correcta = p.opciones[p.correcta];
-    } else {
-      esCorrecta = tuResp === p.correcta;
-      correcta = p.correcta;
+    function respuestaPregunta(numero, si){
+      alert(respuestas[numero][si]);
     }
-
-    if (esCorrecta) correctas++;
-
-    tabla += `<tr>
-      <td>${i + 1}</td>
-      <td>${p.texto}</td>
-      <td>${tuResp}</td>
-      <td>${correcta}</td>
-      <td class="${esCorrecta ? 'correcta' : 'incorrecta'}">${esCorrecta ? '✔️' : '❌'}</td>
-    </tr>`;
-  });
-
-  tabla += "</table>";
-  const promedio = ((correctas / preguntas.length) * 10).toFixed(1);
-  let colorClase = promedio >= 8 ? 'verde' : promedio >= 6 ? 'naranja' : 'rojo';
-
-  document.getElementById("infoAlumno").innerHTML = `
-    <span class="grande">Nombre: ${nombre}</span>
-    <span class="mediano">Apellido: ${apellido}</span>
-    <span class="mediano">Grado: ${grado} | Grupo: ${grupo} | Lista: ${lista}</span>`;
-
-  document.getElementById("resumen").innerHTML = `
-    <span class="grande ${colorClase}">Promedio final: ${promedio}</span>
-    <span class="mediano">Respuestas correctas: ${correctas} de ${preguntas.length}</span>`;
-
-  document.getElementById("tablaRespuestas").innerHTML = tabla;
-}
-
-function reiniciar() {
-  indice = 0;
-  respuestas = [];
-  tiempoRestante = 20 * 60;
-  clearInterval(temporizador);
-  document.getElementById("inicio").classList.remove("hidden");
-  document.getElementById("resultadoFinal").classList.add("hidden");
-  document.getElementById("nombre").value = "";
-  document.getElementById("apellidos").value = "";
-  document.getElementById("grado").value = "";
-  document.getElementById("grupo").value = "";
-  document.getElementById("lista").value = "";
-  document.getElementById("timer").innerText = "";
-}
-</script>
+  </script>
 </body>
 </html>
